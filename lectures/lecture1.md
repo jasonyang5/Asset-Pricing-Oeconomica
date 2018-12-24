@@ -30,7 +30,8 @@ select(diamonds, x, y)
 * filter()- pick rows that satisfy a condition
 ```
 # Syntax:
-filter(dataset, condition1, condition2) # multiple conditions mean that the rows must satisfy /all/ of them 
+# multiple conditions mean that the rows must satisfy /all/ of them 
+filter(dataset, condition1, condition2) 
 # Example:
 filter(diamonds, carat > 0.5)
 filter(diamonds, carat > 0.5 | x > 2) # or statement
@@ -104,6 +105,4 @@ Same as if_else byt does not have type check
 * %>% - pipe operator- used for visually appealing function composition
 
 ## A note on Literal Evaluation (for variables)
-
-
 
