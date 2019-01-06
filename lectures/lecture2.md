@@ -32,7 +32,7 @@ Remarks:
 
 * Usually you will want to combine both!
 * Don't worry about other kinds of regressions like loess, quadratic, etc- we will cover that in the regression part of the quarter (in a few weeks). 
-* If you don't specify a method, it will default to "loess", which isn't  always linear
+* Please do specify a method, the default (in my experience) is almost always not what I wanted it to be. 
 
 ## Axis Adjustments
 Zoom in (points outside range will be considered in geom_smooth regression)
@@ -51,5 +51,3 @@ ggplot(diamonds, aes(x = carat, y = price)) +
         x = "Carats",
         y = "Price ($)")
 ```
-
-## aes: Aesthetics

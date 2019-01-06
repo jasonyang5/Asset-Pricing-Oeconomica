@@ -103,6 +103,3 @@ Same as if_else byt does not have type check
 # Example:
 ```
 * %>% - pipe operator- used for visually appealing function composition
-
-## A note on Literal Evaluation (for variables)
-
