@@ -1,3 +1,6 @@
+---
+geometry: margin=2cm
+---
 # Lecture 0: Setup
 
 ## Part 1: Download R and R Studio

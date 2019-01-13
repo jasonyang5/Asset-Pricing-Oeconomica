@@ -1,5 +1,10 @@
 # Outline
 ## Lectures
+0. Setup
+    * Download RStudio
+    * Git Basics?
+    * Google Drive Setup?
+    * Work through example problem on the projector (RStudio)
 1. Base DPLYR- select, filter, mutate, summarise, group by
     * Enough to clean data with
     * They will learn joins on their own through documentation (intentional)
