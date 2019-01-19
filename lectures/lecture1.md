@@ -1,3 +1,6 @@
+---
+geometry: margin=2.5cm
+---
 # Lecture 1: Base DPLYR
 Base DPLYR are functions used for manipulationg / moving around data frames
 ## Setup and Skeleton Code
@@ -7,18 +10,93 @@ In this lecture I will be using the diamonds dataset and titanic dataset
 
 # tidyverse is a super-package containing dplyr and many other packages we 
 # will be learning to use this quarter
-install.packages(tidyverse)
 library(tidyverse) 
-
-# Here's how you access the data:
-attach(diamonds)
-library(nycflights13)
 ```
-TODO: (write all this data to a csv so students can open in excel)
-\\ Documentation for diamonds Data: https://ggplot2.tidyverse.org/reference/diamonds.html
-\\ Documentation for flights data: https://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&Link=0
+Documentation for diamonds Data: https://ggplot2.tidyverse.org/reference/diamonds.html
 
-## Core Functions and Syntax
+Documentation for titanic Data: https://www.kaggle.com/c/titanic/data (data dictionary)
+
+Documentation for flights data: https://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&Link=0
+
+## Motivation
+We saw that picking columns by name(s) is beneficial because it's not dependent on what order the columns are in. The $ is not sufficient if you want to pick multiple columns. 
+
+And, we often would like to pick rows based on some variable's condition. 
+
+We could mitigate some of these factors by making an abstraction- as you have done on the homework. But, note that a complete (easy to use) one isn't possible for filter. 
+
+This time we will be using `select()`, `filter()`, `group_by()`, and two new functions- `mutate()` and `summarise()`. These take a data frame and make a data frame. 
+
+And, `join()` functions, these combine multiple data frames. 
+
+## Quick Review
+What do each of the hw functions do and when might you use them?
+`select()`, `filter()`, `group()`
+
+## Visual Explanations of Mutate, Summarise, Join
+See separate PDF file
+
+## Example Problem: Basic Summary Stats Titanic Dataset
+Now we will work through another example, this time we have access to these great DPLYR functions!
+
+```
+library(tidyverse)
+
+basepath = "whatever your basepath is"
+data = read_csv(paste0(basepath, "titanic.csv"))
+```
+
+We will use the titanic data set from kaggle and use it to get various summary statistics. 
+```
+# Mean Survival
+# want to compute number of survivals / number of observations
+summarise(data, sum(Survived)/n())
+
+# Count NAs in all the datas- kick out bungy variables
+count_nas<-function(column)
+{
+  return(sum(is.na(column)))
+}
+
+na_data = summarise_all(data, count_nas)
+
+# Survival variation with class
+group_by(data, Pclass) %>%
+    summarise(surv_rate = sum(Survived)/n(), num_obs = n())
+
+# New variable: familial relationships
+mutate(data, relationships = SibSp + Parch)
+
+# Survival variation with the new variable
+(similar to above)
+
+# Take examples of things to compute
+```
+
+## Data Set Joins
+In this section we use the diamonds data
+```
+attach(diamonds)
+
+# Associate each cut type with a number
+distinct_cuts = select(diamonds, cut) %>%
+  distinct()
+cut_codebook = data_frame(cut = distinct_cuts[[1]],
+                          num_cut = c(1,2,3,4,5))
+
+# Join the data together
+diamonds2 = full_join(diamonds, cut_codebook) %>%
+  select(-cut)
+
+# Do the same but with color (exercise for the class)
+
+# 
+```
+
+## Example Problem: String Together 2 data sets
+TODO: Come up with an example of this
+
+# Reference Documentation (not in lecture)
 * select()- pick columns by name
 ```
 # Syntax:
