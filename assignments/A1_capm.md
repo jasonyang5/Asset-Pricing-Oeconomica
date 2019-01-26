@@ -31,15 +31,42 @@ Install these to your proper path, then load them into R using the appropriate r
     - Be careful! The fama-french risk free rate data is the risk free return for a *year*, not a *month*. You will have to convert that yourself using some basic arithmetic.
 7. Now record this data with the `write_feather()` function and hold onto it. We will be building off of this cleaned data in Part 2.
 
-## Part 2.1: Summary Statistics
+## Data Documentation
+PERMNO: Unique Number for each company
+
+date: date, in yyyymmdd format
+
+EXCHCD: exchange
+
+TICKER: stock ticker
+
+PERMCO: Another unique number for each company (please use permno)
+
+DLPDT: Delisted date
+
+DLRET: Delisted return
+
+PRC: Price
+
+RET: Return from previous observation
+
+SHROUT: Outstanding Shares
+
+vwretd: market return (use this variable for your market return)
+
+sprtrn: return of the sp500
 
 
-## Part 2.2: Calculate Beta
+## Part 2.1: Calculate Beta
 
 ### Directions
 We want to calculate the $\beta$ for each stock *ex ante*, i.e. before the returns we evaluate actually happen. 
+
 So, only use data before January 1935 to calculate beta. 
+
 You should exclude betas that don't have at least 5 years of returns observations. 
+
+Then, bucket the beta values you calculated using the `ntile()` function. You should have another column in your returns data titled beta_bucket that has a number from 1-10 based on what beta percentile they are in.
 
 Before looking at the hints, try to come up with the method yourself. Then, refer to the lecture0 code and notes, then look at the hints. 
 
@@ -52,4 +79,28 @@ Before looking at the hints, try to come up with the method yourself. Then, refe
     * On this dataset, divide cov/var to get the beta
     * What kind of beta did we just calculate? Why use this beta over the other form of beta we discussed in fall quarter?
 
-## Part 3: Regression and Visualisation
+## Part 2.2: Summary Statistics
+Create data table(s) containing the following information
+
+* Number of stocks
+* Number of stocks per beta bucket
+* Average beta of each beta bucket
+* Standard Deviation of each beta bucket
+* Average returns and average excess returns of each beta bucket
+
+## Part 2.3: Summary Visualizations
+This visualization is not strictly necessary to replicate the empirical test of CAPM, but are (in my opinion) still interesting:
+
+Create a visualization that shows the average market cap with respect to beta
+
+* Make sure to properly label the graph, x and y axis (with units specified)
+* Note: market cap isn't a column in the data! You will have to make another column market cap = outstanding shares * price
+* Make one visualization with the continuous beta, and another with the discrete (bucket'ed) beta
+
+## Part 3: Portfolio Construction, Final Visualization, and Regression
+Create a graph, or multiple graphs that plots all of the returns against the betas *throughout time* (think carefully about what the x value is, y value is, and what the aesthetics should be)
+    - At first it will probably be easier to make several graphs, but try to combine them into one using clever choice of aesthetics (i.e. one that makes several lines / scatter plots)
+
+Next make a graph that shows the simulated portfolio value of stocks only containing 1st decile betas, 2nd, etc. (you should be able to do this in one swoop instead of adding 10 layers using just aes())
+
+## Part 4: Portfolio construction
