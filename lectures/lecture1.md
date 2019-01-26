@@ -16,7 +16,7 @@ Documentation for diamonds Data: https://ggplot2.tidyverse.org/reference/diamond
 
 Documentation for titanic Data: https://www.kaggle.com/c/titanic/data (data dictionary)
 
-Documentation for flights data: https://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&Link=0
+Documentation for flights data (only used in documentation section at the bottom): https://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&Link=0
 
 ## Motivation
 We saw that picking columns by name(s) is beneficial because it's not dependent on what order the columns are in. The $ is not sufficient if you want to pick multiple columns. 
@@ -88,13 +88,13 @@ cut_codebook = data_frame(cut = distinct_cuts[[1]],
 diamonds2 = full_join(diamonds, cut_codebook) %>%
   select(-cut)
 
-# Do the same but with color (exercise for the class)
+# Associate cut type and price
+cut_type_vs_price = group_by(diamonds2, num_cut) %>%
+  summarise(avg_price = mean(price), sd = sd(price))
 
-# 
+# Make volume
+TODO: Include example about making volume, then compare that to prices (perhaps you will want a regression)
 ```
-
-## Example Problem: String Together 2 data sets
-TODO: Come up with an example of this
 
 # Reference Documentation (not in lecture)
 * select()- pick columns by name

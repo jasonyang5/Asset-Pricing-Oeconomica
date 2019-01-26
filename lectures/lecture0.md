@@ -52,25 +52,29 @@ Data has the following columns:
 * SP Return
 * Risk Free
 
-Recall the definition of historical beta: cov(a,b)/var(b) where a is the security and b is the market you are calculating beta with respect to. 
+Recall the definition of historical beta: cov(a,b)/var(b) where a is the security's returns and b is the market's returns
 
 What columns are relevant?
-* ID
-* Returns
-* Market Returns
 
-We can now subset out the data. We will be using the `which()` function- this is great for getting indexes of vectors that you want.
+* Returns (it's part of the formula!)
+* Market Returns (also part of the formula)
+* ID (so you can distinguish between returns data for different companies)
+
+We can now use the `which()` function to choose only the relevant columns.
 ```
 newdata = olddata[which(names(olddata) %in% c("ID", "Return", "MktReturn"))]
 ```
 Broken down:
 
-* Want to access certain columns of olddata, which `olddata[number]` does
-* Which returns a vector of numbers for which a condition is true- see the documentation with `?which()`
-* assigns this to newdata
+* The `which()` part of the above takes the vector of names of the old data, and returns the indices that are equal to either ID, Return, or MktReturn.
+    - You can enter `?which` in the console to learn more about which.
+* When passed into square brackets, that vector of indicies show which columns you take from that data frame.
+    - E.g.: `data[c(1,2,3)]` will return columns 1-3 of data.
+
 
 ### Calculate Beta
 Now back onto the formula, what we generally want is in a few steps:
+
 1. Group all the matching ID's together
 2. compute var of the market for this entry
 3. compute cov with the returns and the market
