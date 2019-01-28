@@ -36,15 +36,17 @@ decile_return_data = group_by(beta_return_data, Decile, Date) %>%
 
 # starting with $10,000 in 1935 for each beta bucket
 # see the value of the portfolio over time
-initial_port_value = 100000
-
 make_portfolio <- function(decile)
 {
   portfolio_decile = filter(decile_return_data, Decile == decile)
   portfolio_decile = mutate(portfolio_decile, 
-                            portfolio_value = cumprod(c(initial_port_value, weighted_return)[-1]))
+                            portfolio_value = cumprod(weighted_return))
   return(portfolio_decile)
 }
 
 portfolio_list = lapply(1:10,
                         make_portfolio)
+
+portfolio_data = bind_rows(portfolio_list)
+
+write_feather(portfolio_data, paste0(basepath, "portfolio_sim.feather"))
